@@ -3,140 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Алексей Чистяков | Телесные практики и Звукотерапия</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Алексей Чистяков | Точка Касания</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fcfaf7;
-            --text-color: #2c2c2c;
-            --accent-color: #8e7d6f;
-            --secondary-color: #5a5a5a;
+            --bg: #f8f5f2;
+            --accent: #7d6b5d; /* Цвет благородного дерева/земли */
+            --text: #3a3a3a;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
         }
+
+        /* Плавное появление контента */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .visible { opacity: 1; transform: translateY(0); }
+
+        /* Шапка */
         header {
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
+            background: linear-gradient(rgba(248, 245, 242, 0.7), rgba(248, 245, 242, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=2000') center/cover no-repeat;
             padding: 20px;
-            background: linear-gradient(rgba(252, 250, 247, 0.8), rgba(252, 250, 247, 0.8)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1600') center/cover;
         }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+
+        .hero-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
+
+        .hero-content p {
+            font-size: 1.1rem;
             max-width: 600px;
-            margin-bottom: 30px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--accent);
         }
+
+        /* Кнопки */
         .btn {
             display: inline-block;
-            padding: 15px 40px;
-            background-color: var(--accent-color);
-            color: white;
+            padding: 18px 45px;
+            background: var(--accent);
+            color: var(--white);
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(142, 125, 111, 0.3);
+            border-radius: 2px; /* Прямоугольные формы выглядят строже и дороже */
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transition);
         }
+
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(142, 125, 111, 0.5);
+            background: #5d4f44;
+            letter-spacing: 3px;
         }
+
+        /* Секции */
         section {
-            padding: 80px 20px;
-            max-width: 900px;
+            padding: 100px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
+
         h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+            font-weight: 400;
         }
-        .products {
+
+        /* Продукты */
+        .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
-        .product-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #eee;
-            transition: 0.3s;
-        }
-        .product-card:hover {
-            border-color: var(--accent-color);
-        }
-        .price {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin: 20px 0;
-            display: block;
-        }
-        footer {
+
+        .card {
+            background: var(--white);
+            padding: 50px 40px;
             text-align: center;
-            padding: 40px;
-            background: #f4f1ee;
-            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            border: 1px solid rgba(125, 107, 93, 0.1);
         }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            display: block;
+            margin: 25px 0;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        /* Подвал */
+        footer {
+            background: #2c2c2c;
+            color: #a0a0a0;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .products { grid-template-columns: 1fr; }
+            section { padding: 60px 20px; }
+            h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Алексей Чистяков</h1>
-        <p class="subtitle">Верните ясность решений и внутреннюю опору через осознанное прикосновение и звук.</p>
-        <a href="#products" class="btn">Выбрать практику</a>
+        <div class="hero-content">
+            <h1>Алексей Чистяков</h1>
+            <p>Пространство, где тело вспоминает тишину, а ум обретает ясность.</p>
+            <a href="#products" class="btn">Записаться на практику</a>
+        </div>
     </header>
 
-    <section id="about">
-        <h2>О методе</h2>
-        <p>Я объединяю 12-летний опыт телесных практик, нейрофизиологию и древнюю звукотерапию. Это не просто массаж — это работа с глубоким напряжением нервной системы, которая позволяет «перезагрузить» мозг и вернуть контакт с телом.</p>
+    <section id="philosophy" class="fade-in">
+        <h2>Философия метода</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto; line-height: 2;">
+            <p>12 лет я исследую, как прикосновение и звук меняют состояние человека. Моя работа — это сочетание нейрофизиологии и глубоких телесных техник, помогающее женщинам вернуть «внутреннюю опору», когда внешний мир требует слишком многого.</p>
+        </div>
     </section>
 
-    <section id="products">
-        <h2>Практики и решения</h2>
-        <div class="products">
-            <div class="product-card">
-                <h3>Звуковая точка покоя</h3>
-                <p>Аудио-практика (Медитация). Живое звучание тибетских чаш и бубна для глубокой релаксации дома.</p>
+    <section id="products" class="fade-in">
+        <h2>Продукты и услуги</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Звуковая терапия (Online)</h3>
+                <p>Авторская аудио-сессия с тибетскими чашами и бубном. Моментальная «перезагрузка» для уставшего мозга.</p>
                 <span class="price">1 490 ₽</span>
-                <a href="#" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">Купить запись</a>
+                <a href="https://t.me/твой_ник" class="btn" style="padding: 12px 30px; font-size: 0.7rem;">Приобрести</a>
             </div>
-            <div class="product-card">
-                <h3>Сессия «Точка касания»</h3>
-                <p>Индивидуальная работа в Москве или Смоленске (2 часа). Мнуши + Звук + Психология.</p>
+
+            <div class="card">
+                <h3>Сессия «Точка Касания»</h3>
+                <p>2 часа глубокой индивидуальной работы в Москве или Смоленске. Мнуши, звук и психологическое сопровождение.</p>
                 <span class="price">от 7 000 ₽</span>
-                <a href="https://t.me/твой_ник" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">Записаться</a>
+                <a href="https://t.me/твой_ник" class="btn" style="padding: 12px 30px; font-size: 0.7rem;">Забронировать</a>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>Москва · Смоленск | Алексей Чистяков © 2026</p>
-        <p style="margin-top: 10px; font-style: italic;">«Остановитесь. Почувствуйте себя.»</p>
+        <div class="footer-logo">Алексей Чистяков</div>
+        <p>Москва · Смоленск</p>
+        <p style="margin-top: 20px; opacity: 0.6;">© 2026. Личный проект телесного практика.</p>
     </footer>
+
+    <script>
+        // Скрипт для плавного появления блоков при скролле
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 
 </body>
 </html>
