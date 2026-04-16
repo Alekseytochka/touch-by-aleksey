@@ -1,206 +1,203 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Алексей Чистяков | Точка Касания</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f8f5f2;
-            --accent: #7d6b5d; /* Цвет благородного дерева/земли */
-            --text: #3a3a3a;
-            --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Точка касания · Алексей Чистяков</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #06080d; /* Глубокий темный фон */
+  --surface: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.06);
+  --text: #e4eaf5;
+  --muted: rgba(228,234,245,0.42);
+  --blue: #4da6ff; /* Небесно-голубой акцент */
+  --cyan: #38d9f5;
+  --gold: #e8c97a; /* Золотой акцент */
+}
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Mulish', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
 
-        /* Плавное появление контента */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: var(--transition); }
-        .visible { opacity: 1; transform: translateY(0); }
+/* Холст для интерактивных разводов */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
 
-        /* Шапка */
-        header {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(248, 245, 242, 0.7), rgba(248, 245, 242, 0.7)), 
-                        url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=2000') center/cover no-repeat;
-            padding: 20px;
-        }
+.wrap {
+  width: 100%;
+  max-width: 440px;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 1;
+}
 
-        .hero-content h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 400;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
+.hero { text-align: center; margin-bottom: 48px; }
+.avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue);
+  margin: 0 auto 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 30px; color: var(--blue);
+  box-shadow: 0 0 30px rgba(77,166,255,0.15);
+}
 
-        .hero-content p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-weight: 300;
-            line-height: 1.8;
-            color: var(--accent);
-        }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; font-weight: 400;
+  margin-bottom: 12px;
+}
+.hero-title span {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
 
-        /* Кнопки */
-        .btn {
-            display: inline-block;
-            padding: 18px 45px;
-            background: var(--accent);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 2px; /* Прямоугольные формы выглядят строже и дороже */
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: var(--transition);
-        }
+.section-label {
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--blue); opacity: 0.7; margin-bottom: 20px; display: block; text-align: center;
+}
 
-        .btn:hover {
-            background: #5d4f44;
-            letter-spacing: 3px;
-        }
+/* Карточки услуг */
+.card {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px; margin-bottom: 16px;
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover { 
+  border-color: var(--blue); 
+  transform: translateY(-4px); 
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
 
-        /* Секции */
-        section {
-            padding: 100px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+.card-title { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 10px; }
+.card-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-        h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.8rem;
-            text-align: center;
-            margin-bottom: 60px;
-            font-weight: 400;
-        }
+.price-tag { color: var(--gold); font-weight: 600; margin-top: 12px; display: block; font-size: 16px; }
 
-        /* Продукты */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
+/* Кнопка действия */
+.cta-btn {
+  display: block; text-align: center; 
+  background: linear-gradient(135deg, #1a5fd4, #1a6fdb);
+  color: white; text-decoration: none; padding: 18px; border-radius: 14px;
+  font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; 
+  margin-top: 32px; box-shadow: 0 8px 25px rgba(26,95,212,0.3);
+  transition: 0.3s;
+}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(26,95,212,0.5); }
 
-        .card {
-            background: var(--white);
-            padding: 50px 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: var(--transition);
-            border: 1px solid rgba(125, 107, 93, 0.1);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-        }
-
-        .card h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .price {
-            display: block;
-            margin: 25px 0;
-            font-size: 1.4rem;
-            font-weight: 400;
-            color: var(--accent);
-        }
-
-        /* Подвал */
-        footer {
-            background: #2c2c2c;
-            color: #a0a0a0;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            color: var(--white);
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 768px) {
-            section { padding: 60px 20px; }
-            h2 { font-size: 2rem; }
-        }
-    </style>
+footer { text-align: center; margin-top: 60px; font-size: 11px; color: rgba(228,234,245,0.2); letter-spacing: 0.1em; }
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="hero-content">
-            <h1>Алексей Чистяков</h1>
-            <p>Пространство, где тело вспоминает тишину, а ум обретает ясность.</p>
-            <a href="#products" class="btn">Записаться на практику</a>
-        </div>
-    </header>
+<canvas id="bg-canvas"></canvas>
 
-    <section id="philosophy" class="fade-in">
-        <h2>Философия метода</h2>
-        <div style="text-align: center; max-width: 800px; margin: 0 auto; line-height: 2;">
-            <p>12 лет я исследую, как прикосновение и звук меняют состояние человека. Моя работа — это сочетание нейрофизиологии и глубоких телесных техник, помогающее женщинам вернуть «внутреннюю опору», когда внешний мир требует слишком многого.</p>
-        </div>
-    </section>
+<div class="wrap">
+  <div class="hero">
+    <div class="avatar">АЧ</div>
+    <div style="font-size: 11px; letter-spacing: 0.3em; color: var(--muted); margin-bottom: 14px;">АЛЕКСЕЙ ЧИСТЯКОВ</div>
+    <h1 class="hero-title">Точка <span>касания</span></h1>
+    <p style="font-size: 14px; color: var(--muted); line-height: 1.7;">Возвращаю ясность решений и внутреннюю опору через прикосновение и звук[cite: 1213, 1215].</p>
+  </div>
 
-    <section id="products" class="fade-in">
-        <h2>Продукты и услуги</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Звуковая терапия (Online)</h3>
-                <p>Авторская аудио-сессия с тибетскими чашами и бубном. Моментальная «перезагрузка» для уставшего мозга.</p>
-                <span class="price">1 490 ₽</span>
-                <a href="https://t.me/твой_ник" class="btn" style="padding: 12px 30px; font-size: 0.7rem;">Приобрести</a>
-            </div>
+  <span class="section-label">Практики и сессии</span>
+  
+  <a href="#" class="card">
+    <div class="card-title">Звуковая точка покоя</div>
+    <div class="card-desc">Авторская аудио-сессия с тибетскими чашами для моментальной перезагрузки мозга в домашних условиях[cite: 1325, 1326].</div>
+    <span class="price-tag">1 490 ₽</span>
+  </a>
 
-            <div class="card">
-                <h3>Сессия «Точка Касания»</h3>
-                <p>2 часа глубокой индивидуальной работы в Москве или Смоленске. Мнуши, звук и психологическое сопровождение.</p>
-                <span class="price">от 7 000 ₽</span>
-                <a href="https://t.me/твой_ник" class="btn" style="padding: 12px 30px; font-size: 0.7rem;">Забронировать</a>
-            </div>
-        </div>
-    </section>
+  <a href="https://t.me/Aleksey_tochka_kasaniya" class="card" target="_blank">
+    <div class="card-title">Индивидуальная сессия</div>
+    <div class="card-desc">2 часа глубокой работы: Мнуши, звукотерапия и трансперсональное сопровождение. Возврат к себе[cite: 1327, 1328].</div>
+    <span class="price-tag">8 000 ₽</span>
+  </a>
 
-    <footer>
-        <div class="footer-logo">Алексей Чистяков</div>
-        <p>Москва · Смоленск</p>
-        <p style="margin-top: 20px; opacity: 0.6;">© 2026. Личный проект телесного практика.</p>
-    </footer>
+  <a href="https://t.me/Aleksey_tochka_kasaniya" class="card" target="_blank">
+    <div class="card-title">Групповая практика</div>
+    <div class="card-desc">Камерный формат (6–10 человек). Телесная разрядка, работа в парах и медитации[cite: 777, 781, 783].</div>
+    <span class="price-tag">от 1 700 ₽</span>
+  </a>
 
-    <script>
-        // Скрипт для плавного появления блоков при скролле
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+  <a href="https://t.me/Aleksey_tochka_kasaniya" class="cta-btn" target="_blank">Написать мастеру</a>
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
+  <footer>
+    <p>© 2026 · МОСКВА · СМОЛЕНСК [cite: 694]</p>
+  </footer>
+</div>
 
+<script>
+// Интерактивный фон с разводами (Ripples)
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let ripples = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Ripple {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.r = 0;
+    this.opacity = 0.5;
+    // Случайный выбор между цветом чаш (синий) и энергией (золото) [cite: 1378, 1379]
+    this.color = Math.random() > 0.5 ? [77, 166, 255] : [232, 201, 122];
+  }
+  update() {
+    this.r += 1.8;
+    this.opacity -= 0.008;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${this.opacity})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+}
+
+// Создание разводов при клике/нажатии
+document.addEventListener('mousedown', e => {
+  ripples.push(new Ripple(e.clientX, e.clientY));
+});
+
+// Анимационный цикл
+function draw() {
+  ctx.fillStyle = '#06080d';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  ripples.forEach((r, i) => {
+    r.update();
+    r.draw();
+    if (r.opacity <= 0) ripples.splice(i, 1);
+  });
+  
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
 </body>
 </html>
