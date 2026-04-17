@@ -16,55 +16,66 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: 'Mulish', sans-serif; overflow-x: hidden; }
+        body { background: var(--bg); color: var(--text); font-family: 'Mulish', sans-serif; overflow-x: hidden; line-height: 1.6; }
 
         canvas#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
-        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 1; }
+        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 60px 20px; position: relative; z-index: 1; }
 
         /* HEADER & AVATAR */
-        .header { text-align: center; margin-bottom: 40px; }
-        
-        /* Контейнер для HeyGen Аватара */
+        .header { text-align: center; margin-bottom: 50px; }
         .avatar-container {
-            width: 160px; height: 160px; margin: 0 auto 25px;
+            width: 180px; height: 180px; margin: 0 auto 30px;
             position: relative; border-radius: 50%;
             border: 2px solid var(--accent);
-            box-shadow: 0 0 50px rgba(77, 166, 255, 0.2);
+            box-shadow: 0 0 60px rgba(77, 166, 255, 0.2);
             overflow: hidden; background: #000;
         }
-        .avatar-container iframe, .avatar-container video {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .avatar-container iframe, .avatar-container video { width: 100%; height: 100%; object-fit: cover; }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; margin-bottom: 8px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 400; margin-bottom: 12px; }
         h1 span { font-style: italic; color: var(--accent); }
-        .tagline { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
+        .tagline { font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); opacity: 0.9; margin-bottom: 5px; }
+
+        /* SECTION LABELS */
+        .section-label { 
+            font-size: 10px; text-transform: uppercase; letter-spacing: 0.3em; 
+            color: var(--accent); margin: 40px 0 20px; display: block; text-align: center; opacity: 0.6;
+        }
 
         /* CARDS */
         .card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 24px; padding: 28px; margin-bottom: 20px;
-            backdrop-filter: blur(15px); transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 24px; padding: 30px; margin-bottom: 20px;
+            backdrop-filter: blur(20px); transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(255,255,255,0.05); }
 
-        .card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 12px; display: block; }
-        .card-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 10px; }
-        .card-text { font-size: 14px; color: rgba(228, 234, 245, 0.6); line-height: 1.7; }
+        .card-badge { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 15px; display: block; }
+        .card-title { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 12px; font-weight: 400; }
+        .card-text { font-size: 14px; color: rgba(228, 234, 245, 0.7); line-height: 1.8; }
 
-        /* BUTTON */
+        /* BUTTONS */
         .cta-btn {
             display: flex; align-items: center; justify-content: center;
-            width: 100%; padding: 20px; background: linear-gradient(135deg, #1a5fd4, #1a6fdb);
-            color: white; text-decoration: none; border-radius: 16px;
-            font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 13px;
-            box-shadow: 0 10px 30px rgba(26, 95, 212, 0.3); transition: 0.3s;
+            width: 100%; padding: 22px; background: linear-gradient(135deg, #1a5fd4, #1a6fdb);
+            color: white; text-decoration: none; border-radius: 18px;
+            font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; font-size: 13px;
+            box-shadow: 0 12px 35px rgba(26, 95, 212, 0.3); transition: 0.3s; margin-top: 10px;
         }
-        .cta-btn:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(26, 95, 212, 0.5); }
+        .cta-btn:hover { transform: scale(1.02); box-shadow: 0 18px 45px rgba(26, 95, 212, 0.5); }
 
-        footer { text-align: center; margin-top: 50px; font-size: 10px; opacity: 0.3; letter-spacing: 0.2em; }
+        .btn-secondary {
+            display: inline-block; padding: 10px 20px; border: 1px solid var(--accent);
+            color: var(--accent); text-decoration: none; border-radius: 10px;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s;
+        }
+        .btn-secondary:hover { background: var(--accent); color: white; }
+
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
+        .price { font-family: 'Playfair Display'; font-size: 22px; color: var(--gold); }
+
+        footer { text-align: center; margin-top: 80px; font-size: 11px; opacity: 0.2; letter-spacing: 0.3em; }
     </style>
 </head>
 <body>
@@ -74,28 +85,67 @@
 <div class="container">
     <header class="header">
         <div class="avatar-container">
-            <div style="color: #fff; padding: 50px 10px; font-size: 10px;">Место для аватара HeyGen</div>
+            <div style="color: #fff; padding: 65px 10px; font-size: 10px; opacity: 0.5;">HEYGEN AVATAR PLACEHOLDER</div>
         </div>
         <div class="tagline">Алексей Чистяков</div>
         <h1>Точка <span>касания</span></h1>
+        <p style="font-size: 14px; color: var(--muted); opacity: 0.7;">Проводник к вашей внутренней тишине</p>
     </header>
 
+    <div class="card" style="border-color: var(--gold); background: rgba(232, 201, 122, 0.02);">
+        <span class="card-badge">Начните здесь</span>
+        <div class="card-title">Тест: Уровень напряжения</div>
+        <p class="card-text">Узнайте, на какой стадии накопления стресса находится ваша нервная система сегодня.</p>
+        <div class="price-row">
+            <span class="price">Бесплатно</span>
+            <a href="#" class="btn-secondary">Пройти тест</a>
+        </div>
+    </div>
+
+    <span class="section-label">Метод и смыслы</span>
+
     <div class="card">
-        <span class="card-label">Авторский метод</span>
-        <div class="card-title">Глубинная трансформация</div>
+        <span class="card-badge">О глубине</span>
+        <div class="card-title">Авторская методика</div>
         <p class="card-text">
-            12 лет практики позволили мне создать систему, где звук и прикосновение становятся ключом к вашей внутренней опоре[cite: 789, 850]. Это пространство, где ум затихает, а тело начинает дышать[cite: 802, 824].
+            Синтез 12 лет практики. Я использую висцеральные правки, PRONeuroFace и звуковой резонанс как инструменты для настройки вашей внутренней системы. 
+            Это выход из «жизни в голове» в состояние полной опоры.
         </p>
     </div>
 
-    <div class="card" style="border-left: 3px solid var(--accent);">
-        <span class="card-label">Личная работа</span>
-        <div class="card-title">Индивидуальная сессия</div>
-        <p class="card-text">Двухчасовое погружение: Мнуши, виброакустика чаш и трансперсональное сопровождение[cite: 855, 858, 859].</p>
-        <div style="margin-top: 15px; font-family: 'Playfair Display'; font-size: 20px; color: var(--gold);">8 000 ₽</div>
+    <span class="section-label">Цифровые продукты</span>
+
+    <div class="card">
+        <span class="card-badge">Книга-гайд</span>
+        <div class="card-title">Анатомия зажимов</div>
+        <p class="card-text">Как тело хранит невыплаканные слезы и почему классический массаж дает лишь временный эффект.</p>
+        <div class="price-row">
+            <span class="price">990 ₽</span>
+            <a href="#" class="btn-secondary">Купить</a>
+        </div>
     </div>
 
-    <a href="https://t.me/Aleksey_tochka_kasaniya" class="cta-btn">Начать диалог с мастером</a>
+    <div class="card">
+        <span class="card-badge">Видео-практики</span>
+        <div class="card-title">Звуковая перезагрузка</div>
+        <p class="card-text">Курс из 5 уроков для самостоятельной работы с состоянием через звук и дыхание.</p>
+        <div class="price-row">
+            <span class="price">2 490 ₽</span>
+            <a href="#" class="btn-secondary">Начать</a>
+        </div>
+    </div>
+
+    <span class="section-label">Личная работа</span>
+
+    <div class="card" style="border-left: 4px solid var(--accent);">
+        <span class="card-badge">Высшая точка</span>
+        <div class="card-title">Сессия «Точка касания»</div>
+        <p class="card-text">2 часа индивидуальной работы в Москве или Смоленске. Полная переборка состояния через тело и звук.</p>
+        <div class="price-row">
+            <span class="price">8 000 ₽</span>
+        </div>
+        <a href="https://t.me/Aleksey_tochka_kasaniya" class="cta-btn">Записаться в Telegram</a>
+    </div>
 
     <footer>МОСКВА · СМОЛЕНСК · 2026</footer>
 </div>
@@ -114,7 +164,7 @@
             this.x = x; this.y = y; this.r = 0; this.opacity = 0.5;
             this.color = Math.random() > 0.5 ? [77, 166, 255] : [232, 201, 122];
         }
-        update() { this.r += 1.8; this.opacity -= 0.008; }
+        update() { this.r += 1.6; this.opacity -= 0.007; }
         draw() {
             ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
             ctx.strokeStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${this.opacity})`;
@@ -122,11 +172,24 @@
         }
     }
 
+    // Glow Orbs Logic
+    const orbs = [
+        { x: 0.2, y: 0.2, r: 250, color: 'rgba(77, 166, 255, 0.04)' },
+        { x: 0.8, y: 0.7, r: 300, color: 'rgba(232, 201, 122, 0.03)' }
+    ];
+
     document.addEventListener('mousedown', e => ripples.push(new Ripple(e.clientX, e.clientY)));
     document.addEventListener('touchstart', e => ripples.push(new Ripple(e.touches[0].clientX, e.touches[0].clientY)));
 
     function draw() {
         ctx.fillStyle = '#06080d'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        orbs.forEach(orb => {
+            let g = ctx.createRadialGradient(orb.x * canvas.width, orb.y * canvas.height, 0, orb.x * canvas.width, orb.y * canvas.height, orb.r);
+            g.addColorStop(0, orb.color); g.addColorStop(1, 'transparent');
+            ctx.fillStyle = g; ctx.fillRect(0,0, canvas.width, canvas.height);
+        });
+
         ripples.forEach((r, i) => {
             r.update(); r.draw();
             if (r.opacity <= 0) ripples.splice(i, 1);
